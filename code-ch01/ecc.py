@@ -22,10 +22,8 @@ class FieldElement:
     # end::source1[]
 
     def __ne__(self, other):
-        if other is None:
-            return False
         # this should be the inverse of the == operator
-        raise self.num != other.num and self.prime != other.prime
+        return not (self == other)
 
     # tag::source2[]
     def __add__(self, other):
