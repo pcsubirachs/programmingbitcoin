@@ -142,7 +142,9 @@ class Point:
 
     def __ne__(self, other):
         # this should be the inverse of the == operator
-        raise NotImplementedError
+        # "not" in python is a logical operator that will return true if the expressed is false
+        # so here, we use not to show if the instance of the class is equal to other, return false
+        return not (self == other)
 
     def __repr__(self):
         if self.x is None:
@@ -151,6 +153,8 @@ class Point:
             return 'Point({},{})_{}_{}'.format(self.x, self.y, self.a, self.b)
 
     # tag::source3[]
+    # these are all exceptions of boundary cases where the conditions of point addition does not work
+    # so we need to ensure if we ever come across these cases that we can handle them.
     def __add__(self, other):  # <2>
         if self.a != other.a or self.b != other.b:
             raise TypeError('Points {}, {} are not on the same curve'.format
@@ -164,20 +168,38 @@ class Point:
 
         # Case 1: self.x == other.x, self.y != other.y
         # Result is point at infinity
+        if self.x == other.x and self.y != other.y:
+            # the infinity case of y^2=x^3 + ax + b happens when x and y both = 0
+            # this creates a vertical line when plotted
+            return self.__class__(None, None, self.a, self.b)
 
         # Case 2: self.x ≠ other.x
         # Formula (x3,y3)==(x1,y1)+(x2,y2)
         # s=(y2-y1)/(x2-x1)
         # x3=s**2-x1-x2
         # y3=s*(x1-x3)-y1
+        if self.x != other.x:
+            s = ((other.y - self.y) / (other.x - self.x))
+            x = s**2 - self.x - other.x
+            y = s * (self.x - x) - self.y
+            return self.__class__(x, y, self.a, self.b)
+        
+        if self == other and self.y == 0 * self.x:
+            return self.__class__(None, None, self.a, self.b)
 
         # Case 3: self == other
         # Formula (x3,y3)=(x1,y1)+(x1,y1)
         # s=(3*x1**2+a)/(2*y1)
         # x3=s**2-2*x1
         # y3=s*(x1-x3)-y1
+        
+        if self == other:
+            s = (3 * self.x**2 + self.a) / (2 * self.y)
+            x = s**2 - 2 * self.x
+            y = s * (self.x - x) - self.y
+            return self.__class__(x, y, self.a, self.b)
 
-        raise NotImplementedError
+        #raise NotImplementedError
 
 
 class PointTest(TestCase):
