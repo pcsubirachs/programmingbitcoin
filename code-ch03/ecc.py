@@ -290,7 +290,16 @@ class ECCTest(TestCase):
         )
 
         # loop over additions
+        for i in additions:
+            #grab each item from list
+            x1 = i[0]
+            y1 = i[1]
+            x2 = i[3]
+            y2 = i[4]
+            x3 = i[5]
+            y3 = i[6]
         # initialize x's and y's as FieldElements
+        
         # create p1, p2 and p3 as Points
         # check p1+p2==p3
         raise NotImplementedError
