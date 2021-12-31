@@ -1,4 +1,4 @@
-# Subirachs Copy
+# Subirachs
 
 #[Programming Bitcoin](https://learning.oreilly.com/library/view/programming-bitcoin/9781492031482/)
 
