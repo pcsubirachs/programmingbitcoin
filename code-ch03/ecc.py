@@ -290,19 +290,33 @@ class ECCTest(TestCase):
         )
 
         # loop over additions
-        for i in additions:
+        #for i in additions:
             #grab each item from list
-            x1 = i[0]
-            y1 = i[1]
-            x2 = i[3]
-            y2 = i[4]
-            x3 = i[5]
-            y3 = i[6]
+            #x1 = i[0]
+            #y1 = i[1]
+            #x2 = i[3]
+            #y2 = i[4]
+            #x3 = i[5]
+            #y3 = i[6]
         # initialize x's and y's as FieldElements
+        # 
+        for (x1_raw, y1_raw, x2_raw, y2_raw, x3_raw, y3_raw) in additions:
+            x1 = FieldElement(x1_raw, prime)
+            y1 = FieldElement(y1_raw, prime)
+            p1 = (x1, y1, a, b)
+            
+            x2 = FieldElement(x2_raw, prime)
+            y2 = FieldElement(y2_raw, prime)
+            p2 = (x2, y2, a, b)
+            
+            x3 = FieldElement(x3_raw, prime)
+            y3 = FieldElement(y3_raw, prime)
+            p3 = (x3, y3, a, b)
         
-        # create p1, p2 and p3 as Points
+        #ECCTest.test_add() = test_add()
+        
         # check p1+p2==p3
-        raise NotImplementedError
+        #return ECCTest.test_add == test_add
 
     def test_rmul(self):
         # tests the following scalar multiplications
